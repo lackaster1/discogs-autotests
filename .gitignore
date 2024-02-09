@@ -6,6 +6,7 @@ Practice/
 allure-results/
 ui/allure-results
 ui/src/test/resources
+src/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
