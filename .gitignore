@@ -4,7 +4,8 @@ target/
 !**/src/test/**/target/
 Practice/
 allure-results/
-
+ui/allure-results
+ui/src/test/resources
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
