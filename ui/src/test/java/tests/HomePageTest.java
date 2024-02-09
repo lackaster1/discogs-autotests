@@ -10,5 +10,4 @@ public class HomePageTest {
     private HomePageSteps homePageSteps = new HomePageSteps();
     private BaseSteps baseSteps = new BaseSteps();
 
-
 }
