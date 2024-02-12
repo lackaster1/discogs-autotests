@@ -3,7 +3,7 @@ package tests;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import okhttp3.ResponseBody;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,53 +25,45 @@ public class DiscogsReleaseTest {
 
     private final DiscogsApiSteps apiSteps = new DiscogsApiSteps();
 
-    @BeforeEach
-    public void setup() {
-    }
-
     @Test
     @DisplayName("")
     public void checkGetArtistReleaseHandlerResponseWithValidArtistId() {
         String artistId = "321";
 
-        Response<ResponseBody> response = apiSteps.getArtistReleasesRaw(artistId, year.toString(), asc.toString());
+        final Response<ResponseBody> response = apiSteps.getArtistReleasesRaw(artistId, year.toString(), asc.toString());
 
-        assertTrue(response.isSuccessful(), "HTTP Response code: " + response.code());
-        assertNotNull(response.body(), "Response body is null");
+        Assertions.assertAll(
+                () -> assertTrue(response.isSuccessful(), "HTTP Response code: " + response.code()),
+                () -> assertNotNull(response.body(), "Response body is null")
+        );
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"invalidArtistId", "", "!№;%:?*()_-+="})
     @DisplayName("")
-    public void checkGetArtistReleaseHandlerResponsesWithInvalidArtistId() {
-        String artistId = "invalidArtistId";
+    public void checkGetArtistReleaseHandlerResponsesWithInvalidArtistId(String artistId) {
+        final Response<ResponseBody> response = apiSteps.getArtistReleasesRaw(artistId, year.toString(), asc.toString());
 
-        Response<ResponseBody> response = apiSteps.getArtistReleasesRaw(artistId, year.toString(), asc.toString());
-
-        assertThat(response.code())
-                .as("HTTP Response code: " + response.code())
-                .isEqualTo(404);
-        assertThat(response.body())
-                .as("Response body is not null")
-                .isNull();
+        Assertions.assertAll(
+                () -> assertThat(response.code())
+                        .as("HTTP Response code: " + response.code())
+                        .isEqualTo(404),
+                () -> assertThat(response.body())
+                        .as("Response body is not null")
+                        .isNull()
+        );
     }
 
     @Test
     @DisplayName("")
-    public void testGetArtist() throws Exception {
+    public void checkArtistReleasesList() throws Exception {
         String artistId = "321";
 
-        List<Release> releases = apiSteps.getArtistReleases(artistId, year.toString(), asc.toString());
+        final List<Release> releases = apiSteps.getArtistReleases(artistId, year.toString(), asc.toString());
         List<Release> expReleases = List.of();
 
         assertThat(releases)
                 .as("")
                 .isEqualTo(expReleases);
-    }
-
-    @Test
-    @DisplayName("")
-    public void testGetArtist1() {
-
     }
 }

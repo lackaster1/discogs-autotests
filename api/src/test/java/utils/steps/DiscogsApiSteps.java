@@ -37,7 +37,6 @@ public class DiscogsApiSteps extends BaseSteps {
     public List<Release> getArtistReleases(String artistId, String sort, String sortOrder) throws Exception {
         return new Gson().fromJson(getArtistReleasesRaw(artistId, sort, sortOrder).body().string(), ReleaseResponse.class).getReleases();
     }
-
 }
 
 // "nnRpxrHzeGXDDYWrMUUdxTLwOvVSXaCZNGdqnTkM"
