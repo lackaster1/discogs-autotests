@@ -6,9 +6,12 @@ import okhttp3.ResponseBody;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import retrofit2.Response;
 import utils.steps.DiscogsApiSteps;
 import utils.models.Release;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +31,7 @@ public class DiscogsReleaseTest {
 
     @Test
     @DisplayName("")
-    public void checkGet() {
+    public void checkGetArtistReleaseHandlerResponseWithValidArtistId() {
         String artistId = "321";
 
         Response<ResponseBody> response = apiSteps.getArtistReleasesRaw(artistId, year.toString(), asc.toString());
@@ -37,11 +40,10 @@ public class DiscogsReleaseTest {
         assertNotNull(response.body(), "Response body is null");
     }
 
-//    @ParameterizedTest
-//    @ValueSource(strings = {"value1", "value2", "value3"})
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {"invalidArtistId", "", "!№;%:?*()_-+="})
     @DisplayName("")
-    public void checkGet1() {
+    public void checkGetArtistReleaseHandlerResponsesWithInvalidArtistId() {
         String artistId = "invalidArtistId";
 
         Response<ResponseBody> response = apiSteps.getArtistReleasesRaw(artistId, year.toString(), asc.toString());
