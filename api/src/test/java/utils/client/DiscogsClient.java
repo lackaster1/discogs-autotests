@@ -4,6 +4,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import utils.DiscogsApiService;
@@ -16,7 +17,6 @@ public class DiscogsClient {
 
     public static DiscogsApiService createDiscogsApiService() {
         OkHttpClient client = new OkHttpClient.Builder()
-//                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .addInterceptor(new UserAgentInterceptor("FooBarApp/3.0"))
                 .addInterceptor(new UrlLoggingInterceptor(END_POINT))
                 .build();
@@ -37,6 +37,7 @@ public class DiscogsClient {
             this.userAgent = userAgent;
         }
 
+        @NotNull
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request originalRequest = chain.request();
