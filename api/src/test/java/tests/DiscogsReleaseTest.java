@@ -56,11 +56,12 @@ public class DiscogsReleaseTest {
 
     @Test
     @DisplayName("")
-    public void checkArtistReleasesList() throws Exception {
-        String artistId = "321";
+    public void checkArtistReleasesList() {
+        String artistId = "1069645";
+        final Release expectedRelease = Release.builder().build();
 
         final List<Release> releases = apiSteps.getArtistReleases(artistId, year.toString(), asc.toString());
-        List<Release> expReleases = List.of();
+        List<Release> expReleases = List.of(expectedRelease);
 
         assertThat(releases)
                 .as("")

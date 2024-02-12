@@ -54,7 +54,7 @@ public class DiscogsUserTest {
 
     @Test
     @DisplayName("")
-    void checkContentFromGetArtistHandlerResponses() throws Exception {
+    void checkContentFromGetArtistHandlerResponses() {
         String artistId = "1230";
 
         final Artist artist = apiSteps.getArtist(artistId);

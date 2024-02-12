@@ -1,6 +1,7 @@
 package utils.steps;
 
 import com.google.gson.Gson;
+import lombok.SneakyThrows;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -10,6 +11,7 @@ import utils.models.Release;
 import utils.models.ReleaseResponse;
 
 import java.util.List;
+import java.util.Objects;
 
 import static utils.client.DiscogsClient.createDiscogsApiService;
 
@@ -25,8 +27,9 @@ public class DiscogsApiSteps extends BaseSteps {
         return execute(artistCall);
     }
 
-    public Artist getArtist(String artistId) throws Exception {
-        return new Gson().fromJson(getArtistRaw(artistId).body().string(), Artist.class);
+    @SneakyThrows
+    public Artist getArtist(String artistId) {
+        return new Gson().fromJson(Objects.requireNonNull(getArtistRaw(artistId).body()).string(), Artist.class);
     }
 
     public Response<ResponseBody> getArtistReleasesRaw(String artistId, String sort, String sortOrder) {
@@ -34,9 +37,8 @@ public class DiscogsApiSteps extends BaseSteps {
         return execute(artistReleasesCall);
     }
 
-    public List<Release> getArtistReleases(String artistId, String sort, String sortOrder) throws Exception {
-        return new Gson().fromJson(getArtistReleasesRaw(artistId, sort, sortOrder).body().string(), ReleaseResponse.class).getReleases();
+    @SneakyThrows
+    public List<Release> getArtistReleases(String artistId, String sort, String sortOrder) {
+        return new Gson().fromJson(Objects.requireNonNull(getArtistReleasesRaw(artistId, sort, sortOrder).body()).string(), ReleaseResponse.class).getReleases();
     }
 }
-
-// "nnRpxrHzeGXDDYWrMUUdxTLwOvVSXaCZNGdqnTkM"
