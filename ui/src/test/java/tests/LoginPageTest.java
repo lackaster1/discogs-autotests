@@ -1,6 +1,8 @@
 package tests;
 
+import org.example.DefaultDisplayNameGenerator;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import steps.BaseSteps;
@@ -9,6 +11,7 @@ import steps.LoginPageSteps;
 import utils.WebDriverExtension;
 
 @ExtendWith(WebDriverExtension.class)
+@DisplayNameGeneration(DefaultDisplayNameGenerator.class)
 public class LoginPageTest {
     private LoginPageSteps loginPageSteps = new LoginPageSteps();
     private HomePageSteps homePageSteps = new HomePageSteps();
@@ -27,9 +30,6 @@ public class LoginPageTest {
                 .enterPassword("Password")
                 .clickContinueButton()
                 .checkErrorMessageDisplayed();
-
-        //Verify home page
-//        Assert.assertTrue(objHomePage.getHomePageDashboardUserName().toLowerCase().contains("manger id : mgr123"));
     }
 
     @Test
@@ -41,9 +41,6 @@ public class LoginPageTest {
                 .enterPassword("Password")
                 .clickContinueButton()
                 .checkErrorMessageDisplayed();
-
-        //Verify home page
-//        Assert.assertTrue(objHomePage.getHomePageDashboardUserName().toLowerCase().contains("manger id : mgr123"));
     }
 
     private void openDiscogsLoginPage() {

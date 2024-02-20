@@ -3,14 +3,13 @@ package tests;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import okhttp3.ResponseBody;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import retrofit2.Response;
 import utils.steps.DiscogsApiSteps;
 import utils.models.Release;
+import org.example.DefaultDisplayNameGenerator;
 
 import java.util.List;
 
@@ -21,12 +20,12 @@ import static utils.enums.SortingOrderOptions.*;
 
 @Epic("Releases")
 @Feature("Artist releases")
+@DisplayNameGeneration(DefaultDisplayNameGenerator.class)
 public class DiscogsReleaseTest {
 
     private final DiscogsApiSteps apiSteps = new DiscogsApiSteps();
 
     @Test
-    @DisplayName("")
     public void checkGetArtistReleaseHandlerResponseWithValidArtistId() {
         String artistId = "321";
 
@@ -40,7 +39,6 @@ public class DiscogsReleaseTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"invalidArtistId", "", "!№;%:?*()_-+="})
-    @DisplayName("")
     public void checkGetArtistReleaseHandlerResponsesWithInvalidArtistId(String artistId) {
         final Response<ResponseBody> response = apiSteps.getArtistReleasesRaw(artistId, year.toString(), asc.toString());
 
@@ -55,7 +53,6 @@ public class DiscogsReleaseTest {
     }
 
     @Test
-    @DisplayName("")
     public void checkArtistReleasesList() {
         String artistId = "1069645";
         final Release expectedRelease = Release.builder().build();

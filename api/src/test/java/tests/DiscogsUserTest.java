@@ -3,8 +3,9 @@ package tests;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import okhttp3.ResponseBody;
+import org.example.DefaultDisplayNameGenerator;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -19,12 +20,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("User")
 @Feature("GetArtist handler")
+@DisplayNameGeneration(DefaultDisplayNameGenerator.class)
 public class DiscogsUserTest {
 
     private final DiscogsApiSteps apiSteps = new DiscogsApiSteps();
 
     @Test
-    @DisplayName("")
     void checkGetArtistHandlerResponseWithValidArtistId() {
         String artistId = "1230";
 
@@ -38,7 +39,6 @@ public class DiscogsUserTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"invalidArtistId", "", "!№;%:?*()_-+="})
-    @DisplayName("")
     void checkGetArtistHandlerResponsesWithInvalidArtistId(String artistId) {
         final Response<ResponseBody> response = apiSteps.getArtistRaw(artistId);
 
@@ -53,7 +53,6 @@ public class DiscogsUserTest {
     }
 
     @Test
-    @DisplayName("")
     void checkContentFromGetArtistHandlerResponses() {
         String artistId = "1230";
 
